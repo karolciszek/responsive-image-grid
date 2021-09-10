@@ -1,5 +1,5 @@
 $max-width: 1080px;
-$dev-bgcolor: red;
+$dev-bgcolor: #f0f0f0;
 
 * {
   font-family: 'Lato', sans-serif;
@@ -11,5 +11,21 @@ body {
 }
 
 .contents {
-  background-color: $dev-bgcolor;
+}
+
+// Used as substitute for the images while developing layout
+.dev-box {
+  min-width: 200px;
+  min-height: 200px;
+
+  background: $dev-bgcolor;
+  border-radius: 10px;
+
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
