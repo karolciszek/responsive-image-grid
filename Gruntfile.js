@@ -4,6 +4,8 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
+        esversion: 6,
+        moz: true,
         globals: {
           jQuery: true
         }
@@ -17,6 +19,9 @@ module.exports = function(grunt) {
 
     sass: {
       dist: {
+        // options: {
+        //   style: 'expanded'
+        // },
         files: {
           'dist/css/main.css': 'src/css/main.scss'
         }
@@ -42,8 +47,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('default', ['sass']);
-  grunt.registerTask('default', ['copy']);
+  grunt.registerTask('default', ['jshint', 'sass', 'copy']);
 
 };
