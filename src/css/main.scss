@@ -1,0 +1,8 @@
+$max-width: 1080px;
+$dev-bgcolor: red;
+
+body {
+  background-color: $dev-bgcolor;
+  max-width: $max-width;
+  margin: 0 auto;
+}
