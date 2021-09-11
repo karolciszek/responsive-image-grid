@@ -50,6 +50,11 @@ body {
 
   // Transition on "all" might affect performance
   transition: all 0.15s ease-in-out;
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 .photo-author {
@@ -57,6 +62,10 @@ body {
   font-weight: bold;
   left: 15px;
   bottom: 5px;
+
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255 , 0.4);
 }
 
 .photo-image {
@@ -66,6 +75,8 @@ body {
 #container {
   display: flex;
   flex-wrap: wrap;
+
+  overflow: hidden;
 
   // Property adopted only in 2020/2021 for some browsers
   gap: 10px;
