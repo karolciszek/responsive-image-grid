@@ -14,8 +14,8 @@
       this.authorName = unsplData.user.name;
       this.altText = unsplData.alt_description;
 
-      // Our tiles only show the small image
-      this.imgUrl = unsplData.urls.small;
+      // Our tiles only show the regular image
+      this.imgUrl = unsplData.urls.regular;
 
       this.href = unsplData.links.html;
       this.id = unsplData.id;
