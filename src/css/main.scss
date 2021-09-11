@@ -1,6 +1,8 @@
 $max-width: 1080px;
 $dev-bgcolor: #f0f0f0;
 
+$media-breakpoint-large: 1080px;
+
 * {
   font-family: 'Lato', sans-serif;
 }
@@ -13,15 +15,41 @@ body {
 .contents {
 }
 
-// Used as substitute for the images while developing layout
-.dev-box {
-  min-width: 200px;
-  min-height: 200px;
+.photo-container {
+  @media (min-width: $media-breakpoint-large) {
+    min-width: 300px;
+  }
+
+  @media (max-width: $media-breakpoint-large) {
+    min-width: 200px;
+  }
+
+  min-height: 100px;
 
   background: $dev-bgcolor;
   border-radius: 10px;
 
+  // Children will be absolutely positioned within the box
+  position: relative;
+
   flex: 1;
+
+  // Transition on "all" might affect performance
+  transition: all 0.15s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.photo-author {
+  position: absolute;
+  font-weight: bold;
+  left: 15px;
+  bottom: 5px;
+}
+
+.photo-image {
+  width: 100%;
 }
 
 .container {
