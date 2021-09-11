@@ -21,17 +21,30 @@
       this.id = unsplData.id;
     }
     // TODO: include likes of photo?
+
+    render () {
+      const elem = document.createElement("div");
+      elem.id = this.id;
+      elem.classList.add("photo-container");
+      elem.innerHTML = `
+        <a href="${this.href}">
+          <img class="photo-image" src="${this.imgUrl}" alt="${this.altText}" />
+          <p class="photo-author">${this.authorName}</p>
+        </a>
+      `;
+      return elem;
+    }
   }
 
-  const photos = [];
-
   function createPhotos (photoData) {
+    const photos = [];
     photoData.forEach(obj => {
       photos.push(new UnsplashPhoto(obj));
 
       // Dev purposes
       console.log(photos);
     });
+    return photos;
   }
 
   function fetchPhotos () {
@@ -41,7 +54,14 @@
 
   console.log("Hello world!");
 
-  fetchPhotos()
+  photos = fetchPhotos()
     .then(data => createPhotos(data))
     .catch(err => console.log(err));
+
+  const container = document.getElementById("container");
+
+  photos
+    .then(ps => {
+      ps.forEach(p => container.appendChild(p.render()));
+    });
 })();
