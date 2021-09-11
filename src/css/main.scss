@@ -2,6 +2,7 @@ $max-width: 1080px;
 $dev-bgcolor: #f0f0f0;
 
 $media-breakpoint-large: 1080px;
+$media-breakpoint-small: 600px;
 
 * {
   font-family: 'Lato', sans-serif;
@@ -10,6 +11,11 @@ $media-breakpoint-large: 1080px;
 body {
   margin: 0 auto;
   max-width: $max-width;
+
+  @media (max-width: $media-breakpoint-large) {
+    // Non-desktop size viewports should have padding
+    padding: 0 20px;
+  }
 }
 
 .contents {
@@ -17,14 +23,23 @@ body {
 
 .photo-container {
   @media (min-width: $media-breakpoint-large) {
-    min-width: 300px;
+    // Hover enlarging should only be applied on desktop-size viewports
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
-  @media (max-width: $media-breakpoint-large) {
-    min-width: 200px;
+  // Non-mobile size viewports should show at least two images per row
+  flex-grow: 1;
+  flex-basis: ($media-breakpoint-small / 2);
+
+  @media (max-width: $media-breakpoint-small) {
+    // Mobile-size devices should have one image per row
+    flex-basis: 100%;
   }
 
   min-height: 100px;
+
 
   background: $dev-bgcolor;
   border-radius: 10px;
@@ -32,13 +47,9 @@ body {
   // Children will be absolutely positioned within the box
   position: relative;
 
-  flex: 1;
 
   // Transition on "all" might affect performance
   transition: all 0.15s ease-in-out;
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .photo-author {
