@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
+  mode: 'development',
   entry: './src/js/main',
   output: {
     path: path.resolve(__dirname, 'dist/js'),

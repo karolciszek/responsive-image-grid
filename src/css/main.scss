@@ -79,6 +79,12 @@ body {
   object-fit: cover;
 }
 
+.photo-placeholder {
+  display: block;
+  max-height: inherit;
+  max-width: 100%;
+}
+
 #container {
   display: flex;
   flex-wrap: wrap;

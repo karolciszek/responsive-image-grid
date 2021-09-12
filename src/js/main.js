@@ -1,12 +1,14 @@
+import { decode } from 'blurhash';
+
 // Global function closure
 (function () {
   const API_ROOT = 'https://api.unsplash.com';
   const ACCESS_KEY = 'in_progress';
-  const keyURI = 'http://localhost:3000/unsplash_key';
+  const keyURI = 'http://localhost:3001/unsplash_key';
   // const photosURI = `${API_ROOT}/photos/?client_id=${ACCESS_KEY}`;
 
   // Make GET requests from a dummy API instead for development purposes
-  const photosURI = `https://responsive-image-grid.free.beeceptor.com`;
+  const photosURI = `http://localhost:3000/`;
 
   class UnsplashPhoto {
     constructor (unsplData) {
@@ -19,30 +21,63 @@
 
       this.href = unsplData.links.html;
       this.id = unsplData.id;
+      
+      this.width = unsplData.width;
+      this.height = unsplData.height;
+
+      // 1080px is the "regular" image width used by Unsplash
+      this.scaledWidth = Math.min(this.width, 1080);
+      this.scaledHeight = Math.floor(this.height * this.scaledWidth / this.width);
+
+      this.blurhash = unsplData.blur_hash;
+      this.placeholder = this.decodeBlurhash();
     }
     // TODO: include likes of photo?
+
+    decodeBlurhash () {
+      const pixels = decode(this.blurhash, 32, 32);
+
+      const canvas = document.createElement("canvas");
+      canvas.classList.add("photo-placeholder");
+      const ctx = canvas.getContext("2d");
+
+      // These attributes allow the canvas to be resized using CSS
+      ctx.canvas.width = 32;
+      ctx.canvas.height = 32;
+
+      // const imageData = ctx.createImageData(500, 500);
+      // imageData.data.set(pixels);
+      const imageData = new ImageData(pixels, 32, 32); 
+      console.log(`imagedata for ${this.id}`);
+      console.log(pixels);
+      console.log(imageData);
+      
+      ctx.putImageData(imageData, 0, 0);
+
+      canvas.setAttribute("style", `width: ${this.scaledWidth}px; height: ${this.scaledHeight}px`);
+      return canvas;
+    }
 
     render () {
       const elem = document.createElement("div");
       elem.id = this.id;
       elem.classList.add("photo-container");
-      elem.innerHTML = `
-        <a href="${this.href}">
-          <img class="photo-image" src="${this.imgUrl}" alt="${this.altText}" />
-          <p class="photo-author">${this.authorName}</p>
-        </a>
-      `;
+      elem.appendChild(this.placeholder);
+      //elem.innerHTML += `
+      //  <a href="${this.href}">
+      //    <img class="photo-image" src="${this.imgUrl}" alt="${this.altText}" />
+      //    <p class="photo-author">${this.authorName}</p>
+      //  </a>
+      //`;
       return elem;
     }
   }
 
   function createPhotos (photoData) {
     const photos = [];
+
     photoData.forEach(obj => {
       photos.push(new UnsplashPhoto(obj));
-
-      // Dev purposes
-      console.log(photos);
     });
     return photos;
   }
@@ -52,9 +87,7 @@
       .then(response => response.json());
   }
 
-  console.log("Hello world!");
-
-  photos = fetchPhotos()
+  const photos = fetchPhotos()
     .then(data => createPhotos(data))
     .catch(err => console.log(err));
 
