@@ -10,6 +10,18 @@ function toggleFit () {
   button.classList.toggle("toggled");
 }
 
+function clearPhotos () {
+  const container = document.getElementById("container");
+  const button = document.getElementById("fit");
+
+  // Remove all children in the container
+  container.textContent = "";
+
+  // The toggle does not apply anymore
+  button.classList.remove("toggled");
+
+}
+
 function createPhotos (photoData) {
   const photos = [];
 
@@ -25,15 +37,13 @@ function fetchPhotos () {
 }
 
 function loadPhotos () {
-  console.log("loading photos");
   const photos = fetchPhotos()
     .then(data => createPhotos(data))
     .catch(err => console.error(err));
 
-  const container = document.getElementById("container");
+  clearPhotos();
 
-  // Remove all children in the container
-  container.textContent = "";
+  const container = document.getElementById("container");
 
   photos
     .then(ps => {
