@@ -8,7 +8,7 @@ import { decode } from 'blurhash';
   // const photosURI = `${API_ROOT}/photos/?client_id=${ACCESS_KEY}`;
 
   // Make GET requests from a dummy API instead for development purposes
-  const photosURI = `http://localhost:3000/`;
+  const photosURI = `https://responsive-image-grid.free.beeceptor.com`;
 
   class UnsplashPhoto {
     constructor (unsplData) {
