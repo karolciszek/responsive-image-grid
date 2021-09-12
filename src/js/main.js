@@ -62,13 +62,15 @@ import { decode } from 'blurhash';
       const elem = document.createElement("div");
       elem.id = this.id;
       elem.classList.add("photo-container");
-      elem.appendChild(this.placeholder);
-      //elem.innerHTML += `
-      //  <a href="${this.href}">
-      //    <img class="photo-image" src="${this.imgUrl}" alt="${this.altText}" />
-      //    <p class="photo-author">${this.authorName}</p>
-      //  </a>
-      //`;
+      elem.innerHTML += `
+        <a href="${this.href}">
+          <img class="photo-image" src="${this.imgUrl}" alt="${this.altText}" />
+          <p class="photo-author">${this.authorName}</p>
+        </a>
+      `;
+
+      // Placeholder is prepended so that it can be covered by the image once it loads
+      elem.prepend(this.placeholder);
       return elem;
     }
   }
