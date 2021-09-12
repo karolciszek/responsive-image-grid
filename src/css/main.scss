@@ -80,6 +80,11 @@ body {
   // Image is absolutely positioned to go over the placeholder
   position: absolute;
   top: 0;
+
+}
+
+.photo-image.contain {
+  object-fit: contain;
 }
 
 .photo-placeholder {

@@ -48,10 +48,6 @@ import { decode } from 'blurhash';
       // const imageData = ctx.createImageData(500, 500);
       // imageData.data.set(pixels);
       const imageData = new ImageData(pixels, 32, 32); 
-      console.log(`imagedata for ${this.id}`);
-      console.log(pixels);
-      console.log(imageData);
-      
       ctx.putImageData(imageData, 0, 0);
 
       canvas.setAttribute("style", `width: ${this.scaledWidth}px; height: ${this.scaledHeight}px`);
@@ -75,6 +71,18 @@ import { decode } from 'blurhash';
     }
   }
 
+  function toggleFit () {
+    const images = document.querySelectorAll(".photo-image");
+    images.forEach(i => i.classList.toggle("contain"));
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.target.matches('#fit')) {
+      event.preventDefault();
+      toggleFit();
+    }
+  }, false);
+
   function createPhotos (photoData) {
     const photos = [];
 
@@ -91,7 +99,7 @@ import { decode } from 'blurhash';
 
   const photos = fetchPhotos()
     .then(data => createPhotos(data))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 
   const container = document.getElementById("container");
 
