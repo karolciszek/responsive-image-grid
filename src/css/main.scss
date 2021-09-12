@@ -18,7 +18,31 @@ body {
   }
 }
 
-.contents {
+.toggle-container {
+  margin-bottom: 50px;
+}
+
+@mixin button-active {
+  background-color: #aaa;
+  color: #fff;
+}
+
+.toggle-button {
+  background-color: #fff;
+  padding: 5px 20px;
+  border: 0.1em solid #aaa;
+  border-radius: 0.2em;
+  text-align: center;
+
+  transition: all 0.2s;
+
+  &:active, &:hover {
+    @include button-active();
+  }
+}
+
+.toggle-button.toggled {
+  @include button-active();
 }
 
 .photo-container {
